@@ -27,11 +27,14 @@ namespace App.Api.Controllers
         }
 
         [HttpGet("ListaPessoas")]
-        public JsonResult ListaPessoas()
+        public JsonResult ListaPessoas(string nome, int pesoMaiorQue, int pesoMenorQue)
         {
-            return Json(new {lista = _service.listaPessoas() });
+            return Json(new {lista = _service.listaPessoas(nome, pesoMaiorQue, pesoMenorQue) });
+            
             
         }
+
+ 
 
         [HttpPost("Salvar")]
         public JsonResult Salvar (string nome, int peso, DateTime datanascimento, bool ativo, Guid idCidade )
