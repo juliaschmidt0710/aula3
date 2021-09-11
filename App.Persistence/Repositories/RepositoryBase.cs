@@ -56,7 +56,7 @@ namespace App.Persistence.Repositories
             {
                 try
                 {
-                    written = _dbContextEntity.SaveChanges();
+                        written = _dbContextEntity.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
