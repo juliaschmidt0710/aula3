@@ -1,7 +1,6 @@
 ﻿using App.Domain.Entities;
 using App.Domain.Interfaces.Application;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,45 +8,38 @@ using System.Threading.Tasks;
 
 namespace App.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class PessoaController : Controller
+    public class CidadeController : Controller
     {
-        private IPessoaService _service;
+        private ICidadeService _service;
 
-        public PessoaController(IPessoaService service)
+        public CidadeController(ICidadeService service)
         {
             _service = service;
         }
-
         [HttpGet("BuscaPorId")]
         public JsonResult BuscaPorID(Guid id)
         {
             return Json(new { lista = _service.BuscaPorId(id) });
         }
 
-        [HttpGet("ListaPessoas")]
-        public JsonResult ListaPessoas()
+        [HttpGet("ListaCidades")]
+        public JsonResult ListaCidades()
         {
-            return Json(new {lista = _service.listaPessoas() });
-            
+            return Json(new { lista = _service.listaCidades() });
         }
 
         [HttpPost("Salvar")]
-        public JsonResult Salvar (string nome, int peso, DateTime datanascimento, bool ativo, Guid idCidade )
+        public JsonResult Salvar(string nome, string cep, string uf)
         {
-            var obj = new Pessoa
+            var obj = new Cidade
             {
                 Nome = nome,
-                DataNascimento = datanascimento,
-                Peso = peso,
-                Ativo = ativo,
-                CidadeId = idCidade
+                Cep = cep,
+                Uf = uf
             };
             _service.Salvar(obj);
             return Json(true);
         }
-
         [HttpPost("Remover")]
         public JsonResult Remover(Guid id)
         {
